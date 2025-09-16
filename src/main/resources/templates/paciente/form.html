@@ -1,24 +1,50 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <title>Novo Paciente</title>
+  <meta charset="UTF-8">
+  <title>Paciente</title>
+  <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
 </head>
-<body>
-<h1 th:text="${paciente.id} != null ? 'Editar Paciente' : 'Novo Paciente'"></h1>
-<form method="post" th:action="${paciente.id} != null ? @{'/pacientes/' + ${paciente.id}} : @{/pacientes}" th:object="${paciente}">
-  <label>Nome</label>
-  <input type="text" th:field="*{nome}" />
-  <br/>
-  <label>Email</label>
-  <input type="email" th:field="*{email}" />
-  <br/>
-  <label>Data de Nascimento</label>
-  <input type="date" th:field="*{dataNascimento}" />
-  <br/>
-  <label>Telefone</label>
-  <input type="text" th:field="*{telefone}" />
-  <br/>
-  <button type="submit">Salvar</button>
+<body class="container mt-4">
+
+<h1 th:text="*{id} != null ? 'Editar Paciente' : 'Novo Paciente'">Paciente</h1>
+
+<form method="post"
+      th:action="${paciente != null and paciente.id != null} ?
+                 @{/pacientes/{id}(id=${paciente.id})} :
+                 @{/pacientes}"
+      th:object="${paciente}">
+  <h1 th:text="*{id} != null ? 'Editar Paciente' : 'Novo Paciente'"></h1>
+
+  <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+
+  <div class="mb-3">
+    <label>Nome</label>
+    <input type="text" th:field="*{nome}" />
+    <br/>
+  </div>
+
+ <div class="mb-3">
+   <label>Email</label>
+   <input type="email" th:field="*{email}" />
+   <br/>
+ </div>
+
+  <div class="mb-3">
+    <label class="form-label">Data de Nascimento</label>
+    <input type="date" th:field="*{dataNascimento}" class="form-control"/>
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Telefone</label>
+    <input type="text" th:field="*{telefone}" class="form-control"/>
+  </div>
+
+  <button type="submit" class="btn btn-primary">Salvar</button>
+  <a th:href="@{/pacientes}" class="btn btn-secondary">Cancelar</a>
 </form>
+
+
+
 </body>
 </html>

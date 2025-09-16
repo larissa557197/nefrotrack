@@ -2,23 +2,41 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Pacientes</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
 </head>
-<body>
+<body class="container mt-4">
+
 <h1>Lista de Pacientes</h1>
-<a th:href="@{/pacientes/novo}">Novo Paciente</a>
-<table>
-    <tr><th>ID</th><th>Nome</th><th>Email</th><th>Ações</th></tr>
+<a th:href="@{/pacientes/novo}" class="btn btn-success mb-2">Novo Paciente</a>
+
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>Nome</th>
+        <th>Email</th>
+        <th>Data de Nascimento</th>
+        <th>Telefone</th>
+        <th>Ações</th>
+    </tr>
+    </thead>
+    <tbody>
     <tr th:each="p : ${pacientes}">
-        <td th:text="${p.id}"></td>
         <td th:text="${p.nome}"></td>
         <td th:text="${p.email}"></td>
+        <td th:text="${p.dataNascimento}"></td>
+        <td th:text="${p.telefone}"></td>
         <td>
-            <a th:href="@{'/pacientes/' + ${p.id} + '/editar'}">Editar</a>
-            <form th:action="@{'/pacientes/' + ${p.id} + '/excluir'}" method="post" style="display:inline">
-                <button type="submit">Excluir</button>
+            <a th:href="@{'/pacientes/' + ${p.id} + '/editar'}" class="btn btn-sm btn-warning">Editar</a>
+            <form th:action="@{'/pacientes/' + ${p.id} + '/excluir'}"
+                  method="post" style="display:inline">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                <button type="submit" class="btn btn-sm btn-danger">Excluir</button>
             </form>
         </td>
     </tr>
+    </tbody>
 </table>
+
+<a th:href="@{/}" class="btn btn-secondary">Voltar ao início</a>
 </body>
 </html>
