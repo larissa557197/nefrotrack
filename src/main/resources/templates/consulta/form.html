@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
+<head><meta charset="UTF-8"><title th:text="${consulta.id} != null ? 'Editar Consulta' : 'Nova Consulta'">Consulta</title></head>
+<body>
+<h1 th:text="${consulta.id} != null ? 'Editar Consulta' : 'Nova Consulta'"></h1>
+
+<form method="post" th:action="${consulta.id} != null ? @{'/consultas/' + ${consulta.id}} : @{/consultas}" th:object="${consulta}">
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+
+    <label>Paciente</label><br/>
+    <select th:field="*{paciente}">
+        <option th:each="p : ${pacientes}" th:value="${p.id}" th:text="${p.nome}"></option>
+    </select><br/><br/>
+
+    <label>Data/Hora</label><br/>
+    <input type="datetime-local" th:field="*{dataHora}"/><br/><br/>
+
+    <label>Médico</label><br/>
+    <input type="text" th:field="*{medicoNome}"/><br/><br/>
+
+    <label>Anotações</label><br/>
+    <textarea th:field="*{anotacoes}"></textarea><br/><br/>
+
+    <button type="submit">Salvar</button>
+    <a th:href="@{/consultas}">Voltar</a>
+</form>
+</body>
+</html>

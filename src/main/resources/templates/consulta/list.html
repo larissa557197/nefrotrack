@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
+<head><meta charset="UTF-8"><title>Consultas</title></head>
+<body>
+<h1>Consultas</h1>
+
+<a th:href="@{/consultas/novo}">Nova Consulta</a>
+
+<form method="get" th:action="@{/consultas}">
+    <label>Filtrar por paciente:</label>
+    <select name="pacienteId">
+        <option th:each="p : ${pacientes}" th:value="${p.id}" th:text="${p.nome}"
+                th:selected="${pacienteSelecionado != null and p.id == pacienteSelecionado.id}"></option>
+    </select>
+    <button type="submit">Filtrar</button>
+</form>
+
+<table>
+    <thead>
+    <tr><th>Data/Hora</th><th>Paciente</th><th>Médico</th><th>Ações</th></tr>
+    </thead>
+    <tbody>
+    <tr th:each="c : ${consultas}">
+        <td th:text="${#temporals.format(c.dataHora, 'dd/MM/yyyy HH:mm')}"></td>
+        <td th:text="${c.paciente.nome}"></td>
+        <td th:text="${c.medicoNome}"></td>
+        <td>
+            <a th:href="@{'/consultas/' + ${c.id} + '/editar'}">Editar</a>
+            <form th:action="@{'/consultas/' + ${c.id} + '/excluir'}" method="post" style="display:inline">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                <button type="submit">Excluir</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<a th:href="@{/pacientes}">Voltar aos pacientes</a>
+</body>
+</html>
