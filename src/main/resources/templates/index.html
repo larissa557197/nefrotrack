@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <title>NefroTrack</title>
+    <!-- se tiver CSS, use th:href corretamente; evite href="." -->
+    <!-- <link rel="stylesheet" th:href="@{/css/main.css}"> -->
+</head>
+<body>
+<h1>NefroTrack</h1>
+<p>Sistema de acompanhamento de pacientes renais.</p>
+
+<!-- botão de login GitHub -->
+<a th:href="@{/oauth2/authorization/github}">Entrar com GitHub</a>
+
+<!-- evite QUALQUER tag com href="." ou src="." -->
+</body>
+</html>
