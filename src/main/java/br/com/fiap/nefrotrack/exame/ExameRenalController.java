@@ -29,7 +29,7 @@ public class ExameRenalController {
         }
         model.addAttribute("pacientes", pacienteRepo.findAll());
         model.addAttribute("tipos", TipoExame.values());
-        return "exames/list";
+        return "exame/list";
     }
 
     @GetMapping("/novo")
@@ -37,7 +37,7 @@ public class ExameRenalController {
         model.addAttribute("exame", new ExameRenal());
         model.addAttribute("pacientes", pacienteRepo.findAll());
         model.addAttribute("tipos", TipoExame.values());
-        return "exames/form";
+        return "exame/form";
     }
 
     @PostMapping
@@ -45,7 +45,7 @@ public class ExameRenalController {
         if (br.hasErrors()) {
             model.addAttribute("pacientes", pacienteRepo.findAll());
             model.addAttribute("tipos", TipoExame.values());
-            return "exames/form";
+            return "exame/form";
         }
         repo.save(exame);
         return "redirect:/exames";
@@ -56,7 +56,7 @@ public class ExameRenalController {
         model.addAttribute("exame", repo.findById(id).orElseThrow());
         model.addAttribute("pacientes", pacienteRepo.findAll());
         model.addAttribute("tipos", TipoExame.values());
-        return "exames/form";
+        return "exame/form";
     }
 
     @PostMapping("/{id}")
@@ -64,7 +64,7 @@ public class ExameRenalController {
         if (br.hasErrors()) {
             model.addAttribute("pacientes", pacienteRepo.findAll());
             model.addAttribute("tipos", TipoExame.values());
-            return "exames/form";
+            return "exame/form";
         }
         exame.setId(id);
         repo.save(exame);

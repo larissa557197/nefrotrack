@@ -38,12 +38,13 @@ public class PacienteController {
             return "paciente/form";
         }
         pacienteRepository.save(paciente);
-        return "redirect:/pacientes/";
+        return "redirect:/pacientes";
     }
 
     @GetMapping("/{id}/editar")
     public String editar(@PathVariable Long id, Model model) {
         Paciente paciente = pacienteRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Paciente inválido: " + id));
+        model.addAttribute("paciente", paciente);
         return "paciente/form";
     }
 
@@ -54,13 +55,13 @@ public class PacienteController {
         }
         paciente.setId(id);
         pacienteRepository.save(paciente);
-        return "redirect:/pacientes/";
+        return "redirect:/pacientes";
     }
 
     @PostMapping("/{id}/excluir")
     public String excluir(@PathVariable Long id, RedirectAttributes redirectAttributes) {
         pacienteRepository.deleteById(id);
-        return "redirect:/pacientes/";
+        return "redirect:/pacientes";
     }
 
 }
