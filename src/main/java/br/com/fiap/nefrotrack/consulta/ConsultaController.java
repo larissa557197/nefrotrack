@@ -35,6 +35,7 @@ public class ConsultaController {
     public String form(Model model) {
         model.addAttribute("consulta", new Consulta());
         model.addAttribute("pacientes", pacienteRepo.findAll());
+        model.addAttribute("formAction", "/consultas");
         return "consulta/form";
     }
 
@@ -43,16 +44,18 @@ public class ConsultaController {
                          BindingResult br, Model model) {
         if (br.hasErrors()) {
             model.addAttribute("pacientes", pacienteRepo.findAll());
+            model.addAttribute("formAction", "/consultas");
             return "consulta/form";
         }
         repo.save(consulta);
-        return "redirect:/consultas";
+        return "redirect:/consultas/";
     }
 
     @GetMapping("/{id}/editar") // <- GET (corrige 405)
     public String edit(@PathVariable Long id, Model model) {
         model.addAttribute("consulta", repo.findById(id).orElseThrow());
         model.addAttribute("pacientes", pacienteRepo.findAll());
+        model.addAttribute("formAction", "/consultas");
         return "consulta/form";
     }
 
@@ -62,17 +65,18 @@ public class ConsultaController {
                          BindingResult br, Model model) {
         if (br.hasErrors()) {
             model.addAttribute("pacientes", pacienteRepo.findAll());
+            model.addAttribute("formAction", "/consultas");
             return "consulta/form";
         }
         consulta.setId(id);
         repo.save(consulta);
-        return "redirect:/consultas"; // <- volta para a listagem
+        return "redirect:/consultas/"; // <- volta para a listagem
     }
 
     @PostMapping("/{id}/excluir")
     public String delete(@PathVariable Long id) {
         repo.deleteById(id);
-        return "redirect:/consultas";
+        return "redirect:/consultas/";
     }
 
     // Opcional: evita 405 se alguém acessar /consultas/{id} via GET
