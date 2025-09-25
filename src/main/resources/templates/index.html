@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="https://www.thymeleaf.org/extras/spring-security"
-lang="pt-BR">
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <title>NefroTrack</title>
@@ -9,6 +9,7 @@ lang="pt-BR">
 </head>
 <body>
 
+<!-- NAVBAR -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <div class="container-fluid">
         <a class="navbar-brand" th:href="@{/}">NefroTrack</a>
@@ -26,19 +27,21 @@ lang="pt-BR">
                 <!-- Usuário autenticado -->
                 <li class="nav-item" sec:authorize="isAuthenticated()">
                     <form th:action="@{/logout}" method="post" class="d-inline">
-                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                        <input th:if="${_csrf != null}" type="hidden"
+                               th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
                         <button type="submit" class="btn btn-outline-light btn-sm">Logout</button>
                     </form>
                 </li>
                 <!-- Usuário anônimo -->
                 <li class="nav-item" sec:authorize="!isAuthenticated()">
-                    <a class="btn btn-outline-light btn-sm" th:href="@{/oauth2/authorization/github}">Login com GitHub</a>
+                    <a class="btn btn-light btn-sm" href="/oauth2/authorization/github">Entrar com GitHub</a>
                 </li>
             </ul>
         </div>
     </div>
 </nav>
 
+<!-- CONTEÚDO -->
 <div class="container mt-5">
     <div class="text-center">
         <h1 class="display-5 mb-4">Bem-vindo ao NefroTrack</h1>
