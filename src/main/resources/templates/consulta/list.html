@@ -5,7 +5,6 @@
 </head>
 
 <body th:replace="fragments/layout :: body(~{::title}, ~{::content})">
-<title>Consultas</title>
 
 <div th:fragment="content">
 
@@ -17,7 +16,7 @@
         </div>
     </div>
 
-    <!-- Filtro por paciente -->
+    <!-- FILTRO POR PACIENTE -->
     <form class="row g-2 mb-3" method="get" th:action="@{/consultas}">
         <div class="col-auto">
             <label class="col-form-label">Filtrar por paciente:</label>
@@ -50,23 +49,27 @@
                 </thead>
                 <tbody>
                 <tr th:each="c : ${consultas}">
-                    <td th:text="${c.dataHora != null ? #temporals.format(c.dataHora, 'dd/MM/yyyy HH:mm') : '-'}"></td>
-                    <td th:text="${c.paciente != null ? c.paciente.nome : '-'}"></td>
-                    <td th:text="${c.medicoNome}"></td>
+                    <td th:text="${c.dataHora != null ? #temporals.format(c.dataHora, 'dd/MM/yyyy HH:mm') : '-'}">01/01/2025 09:00</td>
+                    <td th:text="${c.paciente != null ? c.paciente.nome : '-'}">Paciente</td>
+                    <td th:text="${c.medicoNome}">Médico</td>
                     <td class="text-end">
                         <a class="btn btn-sm btn-outline-secondary"
                            th:href="@{'/consultas/' + ${c.id} + '/editar'}">Editar</a>
+
                         <form class="d-inline" method="post"
                               th:action="@{'/consultas/' + ${c.id} + '/excluir'}"
                               onsubmit="return confirm('Excluir esta consulta?');">
-                            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
                             <button class="btn btn-sm btn-outline-danger" type="submit">Excluir</button>
                         </form>
                     </td>
                 </tr>
 
+                <!-- estado vazio -->
                 <tr th:if="${#lists.isEmpty(consultas)}">
-                    <td colspan="4" class="text-center text-muted py-4">Nenhuma consulta cadastrada.</td>
+                    <td colspan="4" class="text-center text-muted py-4">
+                        Nenhuma consulta cadastrada.
+                    </td>
                 </tr>
                 </tbody>
             </table>
