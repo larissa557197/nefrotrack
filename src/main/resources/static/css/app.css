@@ -42,3 +42,23 @@ body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; 
 /* navbar */
 .navbar .nav-link { opacity: .9; }
 .navbar .nav-link.active, .navbar .nav-link:hover { opacity: 1; }
+
+/* Cores suaves para modo claro/escuro */
+:root {
+    --card-radius: 1rem;
+}
+
+.card {
+    border-radius: var(--card-radius);
+}
+
+.table > :not(caption) > * > * {
+    vertical-align: middle;
+}
+
+.navbar-brand span:last-child { letter-spacing: .2px; }
+
+/* Ajustes de foco */
+.btn:focus, .form-control:focus, .form-select:focus {
+    box-shadow: 0 0 0 .2rem rgba(13,110,253,.25);
+}

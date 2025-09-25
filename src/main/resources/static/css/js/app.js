@@ -54,3 +54,13 @@
 (function () {
     document.querySelectorAll('.toast').forEach(t => new bootstrap.Toast(t).show());
 })();
+
+
+// Auto-dismiss de alertas .alert[data-autohide]
+document.querySelectorAll('.alert[data-autohide]').forEach(el => {
+    const ms = parseInt(el.dataset.autohide, 10) || 3500;
+    setTimeout(() => {
+        el.classList.add('fade');
+        setTimeout(() => el.remove(), 200);
+    }, ms);
+});
