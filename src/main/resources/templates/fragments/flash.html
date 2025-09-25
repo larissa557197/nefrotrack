@@ -1,0 +1,23 @@
+<!— templates/fragments/flash.html —>
+<div th:fragment="toasts">
+    <div th:if="${success}" class="toast align-items-center border-0 bg-success text-white" role="alert">
+        <div class="d-flex">
+            <div class="toast-body"><i class="bi bi-check-circle me-2"></i><span th:text="${success}">Sucesso!</span></div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+        </div>
+    </div>
+
+    <div th:if="${error}" class="toast align-items-center border-0 bg-danger text-white" role="alert">
+        <div class="d-flex">
+            <div class="toast-body"><i class="bi bi-x-circle me-2"></i><span th:text="${error}">Erro!</span></div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+        </div>
+    </div>
+
+    <div th:if="${info}" class="toast align-items-center border-0 bg-primary text-white" role="alert">
+        <div class="d-flex">
+            <div class="toast-body"><i class="bi bi-info-circle me-2"></i><span th:text="${info}">Info</span></div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+        </div>
+    </div>
+</div>

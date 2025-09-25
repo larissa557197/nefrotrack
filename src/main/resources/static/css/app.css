@@ -1,0 +1,44 @@
+/* tipografia & suavização */
+html { scroll-behavior: smooth; }
+body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+
+/* paleta levemente personalizada */
+:root {
+    --bs-primary: #1663ff;
+    --bs-primary-rgb: 22, 99, 255;
+    --bs-body-bg: #f7f8fb;
+}
+
+/* dark mode refinado (Bootstrap 5.3 usa data-bs-theme) */
+[data-bs-theme="dark"] {
+    --bs-body-bg: #0f1115;
+    --bs-body-color: #e8eaf0;
+    --bs-card-bg: #151922;
+    --bs-border-color: #2b3140;
+}
+
+/* cartões e sombras suaves */
+.card {
+    border: 1px solid var(--bs-border-color, rgba(0,0,0,.1));
+    border-radius: 1rem;
+    box-shadow: 0 6px 18px rgba(0,0,0,.05);
+}
+
+/* tabelas “clean” */
+.table thead th {
+    font-weight: 600;
+    border-bottom-width: 1px;
+}
+.table tbody tr:hover {
+    background: rgba(var(--bs-primary-rgb), .04);
+}
+
+/* botões mais arredondados */
+.btn { border-radius: .6rem; }
+
+/* inputs mais confortáveis */
+.form-control, .form-select { border-radius: .6rem; }
+
+/* navbar */
+.navbar .nav-link { opacity: .9; }
+.navbar .nav-link.active, .navbar .nav-link:hover { opacity: 1; }
