@@ -10,22 +10,29 @@
 <div th:fragment="content">
 
     <div class="card shadow-sm">
-        <div class="card-body">
-            <h4 class="mb-3" th:text="${exame != null and exame.id != null} ? 'Editar Exame' : 'Novo Exame'">Exame</h4>
+        <!-- th:object aqui para que #fields funcione -->
+        <div class="card-body" th:object="${exame}">
+            <h4 class="mb-3" th:text="*{id} != null ? 'Editar Exame' : 'Novo Exame'">Exame</h4>
 
-            <div th:if="${#fields.hasAnyErrors()}" class="alert alert-danger">Corrija os erros abaixo.</div>
+            <!-- Agora o alerta está dentro do contexto -->
+            <div th:if="${#fields.hasAnyErrors()}" class="alert alert-danger">
+                Corrija os erros abaixo.
+            </div>
 
-            <!-- Define a URL da action no controller e injeta no model como 'formAction' -->
-            <!-- Ex.: model.addAttribute("formAction", exame.getId()==null?"/exames":"/exames/"+exame.getId()); -->
-
-            <form method="post" th:object="${exame}" th:action="${formAction}">
+            <!-- Define a URL da action no controller como 'formAction' -->
+            <!-- Exemplo no controller:
+                 model.addAttribute("formAction",
+                     exame.getId() == null ? "/exames" : "/exames/" + exame.getId()); -->
+            <form method="post" th:action="${formAction}">
                 <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 
                 <div class="mb-3">
                     <label class="form-label">Paciente</label>
                     <select class="form-select" th:field="*{paciente.id}">
                         <option value="">Selecione…</option>
-                        <option th:each="p : ${pacientes}" th:value="${p.id}" th:text="${p.nome}"></option>
+                        <option th:each="p : ${pacientes}"
+                                th:value="${p.id}"
+                                th:text="${p.nome}"></option>
                     </select>
                     <div class="text-danger" th:errors="*{paciente.id}"></div>
                 </div>
