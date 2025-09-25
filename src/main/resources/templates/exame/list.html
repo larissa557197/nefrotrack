@@ -5,7 +5,6 @@
 </head>
 
 <body th:replace="fragments/layout :: body(~{::title}, ~{::content})">
-<title th:text="#{exames.title}">Exames</title>
 
 <div th:fragment="content">
 
@@ -54,7 +53,13 @@
                 <tr th:each="e : ${exames}">
                     <td th:text="${e.data != null ? #temporals.format(e.data, 'dd/MM/yyyy') : '-'}">01/01/2025</td>
                     <td th:text="${e.paciente != null ? e.paciente.nome : '-'}">Paciente</td>
-                    <td th:text="${e.tipo}">TIPO</td>
+
+                    <!-- badge pro tipo -->
+                    <td>
+                        <span class="badge bg-info-subtle text-info-emphasis border border-info-subtle px-2 py-1"
+                              th:text="${e.tipo}">TIPO</span>
+                    </td>
+
                     <td th:text="${e.resultado}">0.00</td>
                     <td th:text="${e.observacao}">Obs</td>
                     <td class="text-end">
@@ -71,8 +76,11 @@
                     </td>
                 </tr>
 
+                <!-- estado vazio -->
                 <tr th:if="${#lists.isEmpty(exames)}">
-                    <td colspan="6" class="text-center text-muted py-4">Nenhum exame cadastrado.</td>
+                    <td colspan="6" class="text-center text-muted py-4">
+                        <span> Nenhum exame cadastrado. </span>
+                    </td>
                 </tr>
                 </tbody>
             </table>
