@@ -9,17 +9,23 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
     @Bean
-    SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-
+    SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .authorizeHttpRequests( auth -> auth
-                        .requestMatchers("/", "/error", "/css/**").permitAll()
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers(
+                                "/", "/error",
+                                "/css/**", "/js/**", "/images/**", "/webjars/**",
+                                "/oauth2/**", "/login/**"   // <-- LIBERADAS!
+                        ).permitAll()
                         .anyRequest().authenticated()
                 )
-                .oauth2Login(oauth2 -> oauth2
-                        .defaultSuccessUrl("/pacientes", true)
+                // use OAuth2 (pode tirar o formLogin se não for usar)
+                .oauth2Login(o -> o
+                        .loginPage("/")                  // sua home tem o link "Entrar com GitHub"
+                        .defaultSuccessUrl("/", true)    // para onde voltar depois de logar
                 )
-                .logout(l -> l.logoutSuccessUrl("/").permitAll());
+                .logout(l -> l.logoutSuccessUrl("/").permitAll());       // ajuste conforme seu projeto
+
         return http.build();
     }
 }
