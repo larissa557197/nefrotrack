@@ -23,20 +23,24 @@ public class PacienteController {
     @GetMapping
     public String pacientes(Model model) {
         model.addAttribute("pacientes", pacienteRepository.findAll());
+        model.addAttribute("formAction", "/pacientes");
         return "paciente/list"; //templates/paciente/list.html
     }
 
     @GetMapping("/novo")
     public String form(Model model) {
         model.addAttribute("paciente", new Paciente());
+        model.addAttribute("formAction", "/pacientes");
         return "paciente/form"; //templates/paciente/form.html
     }
 
     @PostMapping
-    public String create(@Valid Paciente paciente, BindingResult bindingResult) {
+    public String create(@Valid Paciente paciente, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
+            model.addAttribute("formAction", "/pacientes");
             return "paciente/form";
         }
+
         pacienteRepository.save(paciente);
         return "redirect:/pacientes";
     }
@@ -45,12 +49,14 @@ public class PacienteController {
     public String editar(@PathVariable Long id, Model model) {
         Paciente paciente = pacienteRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Paciente inválido: " + id));
         model.addAttribute("paciente", paciente);
+        model.addAttribute("formAction", "/pacientes/" + id);
         return "paciente/form";
     }
 
     @PostMapping("/{id}")
-    public String update(@PathVariable Long id, Paciente paciente, BindingResult bindingResult) {
+    public String update(@PathVariable Long id, Paciente paciente, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
+            model.addAttribute("formAction", "/pacientes/" + id);
             return "paciente/form";
         }
         paciente.setId(id);
