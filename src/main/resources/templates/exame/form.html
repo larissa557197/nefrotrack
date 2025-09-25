@@ -1,49 +1,69 @@
-<form method="post"
-      th:action="${exame != null and exame.id != null} ? @{/exames/{id}(id=${exame.id})} : @{/exames}"
-      th:object="${exame}">
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
+<head th:replace="fragments/layout :: head(~{::title})">
+    <title th:text="${exame != null and exame.id != null} ? 'Editar Exame' : 'Novo Exame'">Exame</title>
+</head>
 
-    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+<body th:replace="fragments/layout :: body(~{::title}, ~{::content})">
+<title th:text="${exame != null and exame.id != null} ? 'Editar Exame' : 'Novo Exame'">Exame</title>
 
-    <div th:if="${#fields.hasAnyErrors()}" class="alert alert-danger">Corrija os erros abaixo.</div>
+<div th:fragment="content">
 
-    <div class="mb-3">
-        <label class="form-label">Paciente</label>
-        <!-- bind no id do paciente -->
-        <select class="form-select" th:field="*{paciente.id}">
-            <option value="">Selecione…</option>
-            <option th:each="p : ${pacientes}" th:value="${p.id}" th:text="${p.nome}"></option>
-        </select>
-        <div class="text-danger" th:errors="*{paciente.id}"></div>
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <h4 class="mb-3" th:text="${exame != null and exame.id != null} ? 'Editar Exame' : 'Novo Exame'">Exame</h4>
+
+            <div th:if="${#fields.hasAnyErrors()}" class="alert alert-danger">Corrija os erros abaixo.</div>
+
+            <!-- Define a URL da action no controller e injeta no model como 'formAction' -->
+            <!-- Ex.: model.addAttribute("formAction", exame.getId()==null?"/exames":"/exames/"+exame.getId()); -->
+
+            <form method="post" th:object="${exame}" th:action="${formAction}">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+
+                <div class="mb-3">
+                    <label class="form-label">Paciente</label>
+                    <select class="form-select" th:field="*{paciente.id}">
+                        <option value="">Selecione…</option>
+                        <option th:each="p : ${pacientes}" th:value="${p.id}" th:text="${p.nome}"></option>
+                    </select>
+                    <div class="text-danger" th:errors="*{paciente.id}"></div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Data</label>
+                    <input class="form-control" type="date" th:field="*{data}"/>
+                    <div class="text-danger" th:errors="*{data}"></div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Tipo</label>
+                    <select class="form-select" th:field="*{tipo}">
+                        <option value="">Selecione…</option>
+                        <option th:each="t : ${tipos}" th:value="${t}" th:text="${t}"></option>
+                    </select>
+                    <div class="text-danger" th:errors="*{tipo}"></div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Resultado</label>
+                    <input class="form-control" type="number" step="0.01" th:field="*{resultado}"/>
+                    <div class="text-danger" th:errors="*{resultado}"></div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Observação</label>
+                    <textarea class="form-control" th:field="*{observacao}" rows="3"></textarea>
+                </div>
+
+                <div class="d-flex gap-2">
+                    <button class="btn btn-primary" type="submit">Salvar</button>
+                    <a class="btn btn-secondary" th:href="@{/exames}">Cancelar</a>
+                </div>
+            </form>
+        </div>
     </div>
 
-    <div class="mb-3">
-        <label class="form-label">Data</label>
-        <input class="form-control" type="date" th:field="*{data}"/>
-        <div class="text-danger" th:errors="*{data}"></div>
-    </div>
-
-    <div class="mb-3">
-        <label class="form-label">Tipo</label>
-        <select class="form-select" th:field="*{tipo}">
-            <option value="">Selecione…</option>
-            <option th:each="t : ${tipos}" th:value="${t}" th:text="${t}"></option>
-        </select>
-        <div class="text-danger" th:errors="*{tipo}"></div>
-    </div>
-
-    <div class="mb-3">
-        <label class="form-label">Resultado</label>
-        <input class="form-control" type="number" step="0.01" th:field="*{resultado}"/>
-        <div class="text-danger" th:errors="*{resultado}"></div>
-    </div>
-
-    <div class="mb-3">
-        <label class="form-label">Observação</label>
-        <textarea class="form-control" th:field="*{observacao}" rows="3"></textarea>
-    </div>
-
-    <div class="d-flex gap-2">
-        <button class="btn btn-primary" type="submit">Salvar</button>
-        <a class="btn btn-secondary" th:href="@{/exames}">Cancelar</a>
-    </div>
-</form>
+</div>
+</body>
+</html>
