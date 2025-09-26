@@ -104,17 +104,42 @@ Acesse:
 👉 `http://localhost:8080`
 
 ---
-📡 Endpoints
+## 📡 **Endpoints**
 
 ### Pacientes
 
-| Método |   Endpoint   |        Descrição         |
-|--------|--------------|--------------------------|
-|  GET   | `/pacientes` | Lista todos os pacientes |
-| POST   | `/pacientes` | Cria um novo paciente    |
-| PUT    |              |                          |
-| DELETE |              |                          | 
-|--------------------------------------------------|
+| Método | Endpoint               | Descrição                           |
+|--------|------------------------|-------------------------------------|
+| GET    | `/pacientes`            | Retorna a lista de todos os pacientes |
+| POST   | `/pacientes`            | Cria um novo paciente               |
+| GET    | `/pacientes/{id}`       | Exibe os detalhes de um paciente específico |
+| POST   | `/pacientes/{id}/excluir` | Exclui um paciente pelo ID          |
+
+### Exames
+
+| Método | Endpoint               | Descrição                           |
+|--------|------------------------|-------------------------------------|
+| GET    | `/exames`              | Retorna a lista de todos os exames  |
+| POST   | `/exames`              | Registra um novo exame              |
+| GET    | `/exames/{id}`         | Exibe os detalhes de um exame específico |
+| POST   | `/exames/{id}/excluir` | Exclui um exame pelo ID             |
+
+### Consultas
+
+| Método | Endpoint               | Descrição                           |
+|--------|------------------------|-------------------------------------|
+| GET    | `/consultas`           | Retorna a lista de todas as consultas |
+| POST   | `/consultas`           | Agenda uma nova consulta           |
+| GET    | `/consultas/{id}`      | Exibe os detalhes de uma consulta específica |
+| POST   | `/consultas/{id}/excluir` | Exclui uma consulta pelo ID        |
+
+### Autenticação
+
+| Método | Endpoint                         | Descrição                           |
+|--------|----------------------------------|-------------------------------------|
+| GET    | `/oauth2/authorization/github`   | Inicia o fluxo de autenticação via GitHub |
+| GET    | `/logout`                        | Faz o logout da aplicação          |
+
 
 
 ---
