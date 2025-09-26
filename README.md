@@ -66,16 +66,87 @@ O projeto foi desenvolvido com as seguintes tecnologias:
 - Estatísticas detalhadas sobre exames e consultas.
 
 ---
-## 🏗 **Arquitetura**
+## 🏗 **Arquitetura do Projeto**
+O projeto NefroTrack segue uma arquitetura limpa e modularizada, visando boa organização e fácil manutenção. Abaixo está a estrutura de pastas e a descrição de cada módulo:
+├── 📦 **src**
+│   ├── 🛠️ **main**
+│   │   ├── 🌐 **java**
+│   │   │   └── br
+│   │   │       └── com
+│   │   │           └── fiap
+│   │   │               └── nefrotrack
+│   │   │                   ├── **exame**                  # Módulo de Exames
+│   │   │                   │   ├── ExameRenalController.java  # Lógica para gerenciamento de exames
+│   │   │                   │   ├── ExameRenalRepository.java  # Acesso ao banco de dados para Exames
+│   │   │                   │   └── TipoExame.java            # Enum com os tipos de exames
+│   │   │                   ├── **paciente**               # Módulo de Pacientes
+│   │   │                   │   ├── PacienteController.java   # Lógica para gerenciamento de pacientes
+│   │   │                   │   ├── PacienteRepository.java   # Acesso ao banco de dados para Pacientes
+│   │   │                   │   └── Paciente.java             # Entidade Paciente
+│   │   │                   ├── **consulta**               # Módulo de Consultas
+│   │   │                   │   ├── ConsultaController.java   # Lógica para gerenciamento de consultas
+│   │   │                   │   ├── ConsultaRepository.java   # Acesso ao banco de dados para Consultas
+│   │   │                   │   └── Consulta.java             # Entidade Consulta
+│   │   │                   ├── **user**                   # Módulo de Autenticação
+│   │   │                   │   ├── UserController.java       # Lógica de controle de usuários
+│   │   │                   │   ├── UserRepository.java       # Acesso ao banco de dados para Usuários
+│   │   │                   │   └── User.java                 # Entidade de Usuário
+│   │   │                   └── **security**                # Módulo de Segurança (Autenticação/Autorização)
+│   │   │                       ├── SecurityConfig.java        # Configuração de segurança (OAuth2, JWT, etc.)
+│   │   │                       └── CurrentUserAdvice.java     # Serviço para acessar o usuário logado
+│   │   ├── **resources**
+│   │   │   └── **static**
+│   │   │       └── **css**           # Estilos CSS do Frontend
+│   │   │       └── **js**            # Scripts JS
+│   │   └── **templates**
+│   │       ├── layout.html          # Layout base do projeto
+│   │       ├── paciente
+│   │       │   ├── list.html        # Tela de listagem de pacientes
+│   │       │   └── form.html        # Formulário para criação/edição de pacientes
+│   │       ├── exame
+│   │       │   ├── list.html        # Tela de listagem de exames
+│   │       │   └── form.html        # Formulário para criação/edição de exames
+│   │       └── consulta
+│   │           ├── list.html        # Tela de listagem de consultas
+│   │           └── form.html        # Formulário para criação/edição de consultas
+│   └── **test**                     # Testes Unitários e de Integração
+│       ├── **java**
+│       └── **resources**
+└── **pom.xml**                      # Arquivo de configuração do Maven
 
-A arquitetura do projeto segue o modelo **MVC** (Model-View-Controller):
-src/main/java/br/com/fiap/nefrotrack
-├── config/ # Configurações de segurança e internacionalização (i18n)
-├── consulta/ # CRUD de consultas
-├── exame/ # CRUD de exames renais
-├── paciente/ # CRUD de pacientes
-├── user/ # Autenticação de usuários via GitHub OAuth2
-└── NefrotrackApp # Classe principal
+🔧 Descrição dos Módulos
+
+`exame`:
+
+- Controller: Lógica para o gerenciamento de exames renais.
+- Repository: Acesso ao banco de dados para salvar, buscar e excluir exames.
+- TipoExame: Enum que define os tipos de exames realizados (Creatinina, Ureia, etc.).
+
+`paciente`:
+- Controller: Lógica para o gerenciamento de pacientes.
+- Repository: Acesso ao banco de dados para pacientes.
+- Paciente: Entidade que representa as informações do paciente.
+
+`consulta`:
+- Controller: Lógica para o gerenciamento de consultas médicas.
+- Repository: Acesso ao banco de dados para consultas.
+- Consulta: Entidade que representa uma consulta médica.
+
+`user`:
+- Controller: Controle de funcionalidades relacionadas ao usuário (login, logout, etc.).
+- Repository: Acesso ao banco de dados para usuários.
+- User: Entidade que representa as informações de cada usuário.
+
+`security`:
+- SecurityConfig: Configuração de segurança, autenticação via OAuth2 e controle de acessos.
+- CurrentUserAdvice: Classe que permite acessar as informações do usuário autenticado.
+
+📦 Diretórios:
+- `src/main/resources/static/css`: Arquivos CSS responsáveis pela estilização do frontend.
+- `src/main/resources/static/js`: Scripts JavaScript para funcionalidades do frontend.
+- `src/main/resources/templates`: Templates Thymeleaf para renderizar as páginas HTML.
+- `src/test/java`: Arquivos de teste para garantir a qualidade do código.
+
 ---
 ## ⚙️ **Instalação**
 
