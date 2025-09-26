@@ -28,5 +28,7 @@
 - Gradle (wrapper já incluso)
 - Credenciais OAuth no GitHub (OAuth App)
 
-
-RM558042 Thomas Rodrigues Ribeiro Silva
+---
+## Integrantes
+RM557197 - Larissa Mezencio Pereira Muniz
+RM558042 - Thomas Rodrigues Ribeiro Silva
