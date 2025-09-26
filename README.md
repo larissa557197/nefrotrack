@@ -143,6 +143,11 @@ Acesse:
 
 
 ---
-## Integrantes
-RM557197 - Larissa Mezencio Pereira Muniz
-RM558042 - Thomas Rodrigues Ribeiro Silva
+## 👥 Integrantes
+| 👥 |    RM    |              Nome              |
+|----|----------|---------------------------------|
+| 👩 | RM557197 | Larissa Mezencio Pereira Muniz |
+| 👩 | RM558042 | Thomas Rodrigues Ribeiro Silva |
+ 
+
+ 
