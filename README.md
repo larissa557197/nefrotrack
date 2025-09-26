@@ -27,6 +27,12 @@
 - PostgreSQL rodando (ou Docker)
 - Gradle (wrapper já incluso)
 - Credenciais OAuth no GitHub (OAuth App)
+  
+2) Variáveis de Ambiente
+   ```
+   # Banco
+   
+   ```
 
 ---
 ## Integrantes
