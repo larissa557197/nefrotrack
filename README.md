@@ -47,7 +47,7 @@
 5. Acesse **Entrar com GitHub** na navbar
 
 ---
-##🌐 Internacionalização (i18n)
+## 🌐 Internacionalização (i18n)
 - `messages.properties` (default, EN)
 - `messages_pt_BR.properties` (português)
 - `ValidationMessages_*.properties` para mensagens de validação
