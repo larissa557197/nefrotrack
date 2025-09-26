@@ -2,6 +2,21 @@
 ---
 **Gerencie paciente, exames renais e consultas** em uma aplicação web simples, segura e responsiva
 ---
+## 📑 **Índice**
+
+- [Visão Geral](#-visão-geral)
+- [Tecnologias](#-tecnologias)
+- [Funcionalidades](#-funcionalidades)
+- [Arquitetura](#-arquitetura)
+- [Instalação](#-instalação)
+- [Configuração](#-configuração)
+- [Execução](#-execução)
+- [Endpoints](#-endpoints)
+- [Screenshots](#-screenshots)
+- [Equipe](#-equipe)
+- [Licença](#-licença)
+
+---
 ## ✨ Recursos
 - 👥 Pacientes: CRUD completo
 - 🧪 Exames renais: tipos, resultado, observação e vínculo com paciente
@@ -12,50 +27,96 @@
 - 🛠️ Migrations com Flyway
 - 🧰 Boas práticas: @Controller + camadas, JPA, validação (Bean Validation), CSRF
 ---
-## 🏗️ Arquitetura & Tech
+## 🎯 **Visão Geral**
+O **NefroTrack** é uma aplicação para gerenciar o ciclo clínico de pacientes renais, incluindo:
 
-- Back-end: Spring Boot (Web, Security, OAuth2 Client, Validation, Data JPA)
-- UI: Thymeleaf + Bootstrap 5
-- DB: PostgreSQL (Flyway para versionamento)
-- Build: Gradle
-- JDK: 17
+- Cadastro e gerenciamento de **pacientes**;
+- Registro e acompanhamento de **exames renais**;
+- Agendamento de **consultas médicas**;
+- Dashboard com **resumo clínico**;
+- **Autenticação via GitHub OAuth2**.
+---
+## 🛠 **Tecnologias**
+
+O projeto foi desenvolvido com as seguintes tecnologias:
+
+- **Back-end:**  
+  - Spring Boot 3 (Web, Data JPA, Security, Validation, OAuth2 Client)
+  - Thymeleaf para a camada de visualização
+  - PostgreSQL com Flyway para migrações
+
+- **Autenticação:**  
+  - Spring Security com OAuth2 Client para **GitHub OAuth2**
+
+- **Dev Tools:**  
+  - Lombok, Maven, Docker Compose, Spring DevTools
+---
+## 🚀 **Funcionalidades**
+
+### ✅ Principais Funcionalidades:
+- Cadastro e gerenciamento de **pacientes** com informações de contato e histórico.
+- Registro e consulta de **exames renais** (creatinina, ureia, potássio, sódio, etc.).
+- Agendamento e acompanhamento de **consultas médicas**.
+- Dashboard de **estados clínicos** de pacientes, exames e consultas.
+- **Filtros e busca** para visualizar dados específicos de pacientes e exames.
+- **Autenticação GitHub** para login.
+
+### 🛠 Funcionalidades Planejadas:
+- Alertas clínicos para **valores críticos** de exames.
+- Estatísticas detalhadas sobre exames e consultas.
 
 ---
-## 🚀 Subindo o projeto
-1) Pré-requisitos
-- Java 17
-- PostgreSQL rodando (ou Docker)
-- Gradle (wrapper já incluso)
-- Credenciais OAuth no GitHub (OAuth App)
-  
-2) Variáveis de Ambiente
-   ```
-    # Client ID do github
-    spring.security.oauth2.client.registration.github.client-id=${GITHUB_ID}
-    spring.security.oauth2.client.registration..github.client-secret=${GITHUB_SECRET}
-   ```
-3) Rodando
-   ```
-   http:localhost:8080
-   ```
----
-## Login com o Github
-1. Crie um **OAuth App** em `https://github.com/settings/developers`
-2. **Homepage URL:** `http://localhost:8080`
-3. **Authorization callback URL:** `http://localhost:8080/login/oauth2/code/github`
-4. Copie **Client ID** e **Client Secret** para `GITHUB_ID` e `GITHUB_SECRET`
-5. Acesse **Entrar com GitHub** na navbar
+## 🏗 **Arquitetura**
 
+A arquitetura do projeto segue o modelo **MVC** (Model-View-Controller):
+src/main/java/br/com/fiap/nefrotrack
+├── config/ # Configurações de segurança e internacionalização (i18n)
+├── consulta/ # CRUD de consultas
+├── exame/ # CRUD de exames renais
+├── paciente/ # CRUD de pacientes
+├── user/ # Autenticação de usuários via GitHub OAuth2
+└── NefrotrackApp # Classe principal
 ---
-## 🌐 Internacionalização (i18n)
-- `messages.properties` (default, EN)
-- `messages_pt_BR.properties` (português)
-- `ValidationMessages_*.properties` para mensagens de validação
-Exemplo no Thymeleaf:
+## ⚙️ **Instalação**
+
+### Pré-requisitos
+- **Java 17+**
+- **Maven 3.9+**
+- **PostgreSQL 15+** ou **Docker**
+
+### Clonar o Repositório
+```bash
+git clone https://github.com/seu-usuario/nefrotrack.git
+cd nefrotrack
 ```
-<h2 th:text="#{pacientes.title}"> Pacient List </h2>
-<button th:text="#{btn.new}"> New </button>
+---
+🔑 Configuração
+`application.properties`
+
+Crie um arquivo de configuração com as seguintes propriedades:
+---
+
+▶️ Execução
 ```
+mvn spring-boot:run
+```
+Acesse:
+👉 `http://localhost:8080`
+
+---
+📡 Endpoints
+
+### Pacientes
+
+| Método |   Endpoint   |        Descrição         |
+|--------|--------------|--------------------------|
+|  GET   | `/pacientes` | Lista todos os pacientes |
+| POST   | `/pacientes` | Cria um novo paciente    |
+| PUT    |              |                          |
+| DELETE |              |                          | 
+|--------------------------------------------------|
+
+
 ---
 ## Integrantes
 RM557197 - Larissa Mezencio Pereira Muniz
