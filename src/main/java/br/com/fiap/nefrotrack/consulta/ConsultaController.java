@@ -15,27 +15,19 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class ConsultaController {
 
-    private final ConsultaRepository repo;
-    private final PacienteRepository pacienteRepo;
+    private final ConsultaService consultaService;
 
     @GetMapping
     public String list(@RequestParam(required = false) Long pacienteId, Model model) {
-        if (pacienteId != null) {
-            Paciente selecionado = pacienteRepo.findById(pacienteId).orElseThrow();
-            model.addAttribute("consultas", repo.findByPacienteOrderByDataHoraDesc(selecionado));
-            model.addAttribute("pacienteSelecionado", selecionado); // <- guarda o selecionado
-        } else {
-            model.addAttribute("consultas", repo.findAll()); // pode ordenar se quiser
-        }
-        model.addAttribute("pacientes", pacienteRepo.findAll()); // para o filtro/select
+        model.addAttribute("consultas", consultaService.listarConsultas(pacienteId));
+        model.addAttribute("pacientes", consultaService.listarPacientes());
         return "consulta/list";
     }
 
     @GetMapping("/novo")
     public String form(Model model) {
         model.addAttribute("consulta", new Consulta());
-        model.addAttribute("pacientes", pacienteRepo.findAll());
-        model.addAttribute("formAction", "/consultas");
+        model.addAttribute("pacientes", consultaService.listarPacientes());
         return "consulta/form";
     }
 
@@ -43,19 +35,17 @@ public class ConsultaController {
     public String create(@Valid @ModelAttribute("consulta") Consulta consulta,
                          BindingResult br, Model model) {
         if (br.hasErrors()) {
-            model.addAttribute("pacientes", pacienteRepo.findAll());
-            model.addAttribute("formAction", "/consultas");
+            model.addAttribute("pacientes", consultaService.listarPacientes());
             return "consulta/form";
         }
-        repo.save(consulta);
+        consultaService.salvar(consulta);
         return "redirect:/consultas/";
     }
 
-    @GetMapping("/{id}/editar") // <- GET (corrige 405)
+    @GetMapping("/{id}/editar")
     public String edit(@PathVariable Long id, Model model) {
-        model.addAttribute("consulta", repo.findById(id).orElseThrow());
-        model.addAttribute("pacientes", pacienteRepo.findAll());
-        model.addAttribute("formAction", "/consultas");
+        model.addAttribute("consulta", consultaService.buscarPorId(id));
+        model.addAttribute("pacientes", consultaService.listarPacientes());
         return "consulta/form";
     }
 
@@ -64,26 +54,17 @@ public class ConsultaController {
                          @Valid @ModelAttribute("consulta") Consulta consulta,
                          BindingResult br, Model model) {
         if (br.hasErrors()) {
-            model.addAttribute("pacientes", pacienteRepo.findAll());
-            model.addAttribute("formAction", "/consultas");
+            model.addAttribute("pacientes", consultaService.listarPacientes());
             return "consulta/form";
         }
         consulta.setId(id);
-        repo.save(consulta);
-        return "redirect:/consultas/"; // <- volta para a listagem
+        consultaService.salvar(consulta);
+        return "redirect:/consultas/";
     }
 
     @PostMapping("/{id}/excluir")
     public String delete(@PathVariable Long id) {
-        repo.deleteById(id);
+        consultaService.excluir(id);
         return "redirect:/consultas/";
     }
-
-    // Opcional: evita 405 se alguém acessar /consultas/{id} via GET
-    @GetMapping("/{id}")
-    public String viewToEdit(@PathVariable Long id) {
-        return "redirect:/consultas/" + id + "/editar";
-    }
-
-
 }
