@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Service
 @RequiredArgsConstructor
@@ -18,8 +20,11 @@ public class ConsultaService {
             Paciente paciente = pacienteRepository.findById(pacienteId).orElseThrow();
             return consultaRepository.findByPacienteOrderByDataHoraDesc(paciente);
         }
-        return consultaRepository.findAll();
+        return StreamSupport
+                .stream(consultaRepository.findAll().spliterator(), false)
+                .collect(Collectors.toList());
     }
+
 
     public Consulta buscarPorId(Long id) {
         return consultaRepository.findById(id).orElseThrow();
